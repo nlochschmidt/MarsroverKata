@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import rover.MarsRover.Direction;
+
 /*
  Develop an api that moves a rover around on a grid.
  You are given the initial starting point (x,y) of a rover and the direction (N,S,E,W) it is facing.
@@ -25,13 +27,22 @@ public class MarsRoverTest {
 
 	@Test
 	public void roverHasStartingPosition() {
-		MarsRover rover = new MarsRover(0, 0);
+		MarsRover rover = createMarsRover(0, 0, Direction.N);
 		assertThat(rover.x(), equalTo(0));
 		assertThat(rover.y(), equalTo(0));
 
-		rover = new MarsRover(10, 15);
+		rover = createMarsRover(10, 15, Direction.N);
 		assertThat(rover.x(), equalTo(10));
 		assertThat(rover.y(), equalTo(15));
 	}
 
+	@Test
+	public void roverHasStartingDirection() {
+		MarsRover rover = createMarsRover(0, 0, Direction.N);
+		assertThat(rover.direction(), equalTo(Direction.N));
+	}
+
+	private MarsRover createMarsRover(int x, int y, Direction d) {
+		return new MarsRover(x, y, d);
+	}
 }
