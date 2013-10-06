@@ -32,6 +32,11 @@ public class Position {
 	}
 
 	@Override
+	public int hashCode() {
+		return x << 10 + y;
+	}
+
+	@Override
 	public String toString() {
 		return String.format("Position(x: %d, y: %d)", x, y);
 	};

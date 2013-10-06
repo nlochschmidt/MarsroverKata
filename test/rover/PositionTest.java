@@ -54,4 +54,15 @@ public class PositionTest {
 				allOf(containsString("Position"), containsString("3"),
 						containsString("5")));
 	}
+
+	@Test
+	public void testHashCode() {
+		Position p1 = new Position(3, 5);
+		Position p2 = new Position(3, 5);
+		assertThat(p1.hashCode(), equalTo(p2.hashCode()));
+
+		p1 = new Position(-3, -5);
+		p2 = new Position(-3, -5);
+		assertThat(p1.hashCode(), equalTo(p2.hashCode()));
+	}
 }

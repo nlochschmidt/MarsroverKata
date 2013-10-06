@@ -4,7 +4,7 @@ public class MarsRover {
 
 	private Position position;
 	private Direction direction;
-	private Grid grid = null;
+	private Planet planet = null;
 
 	public MarsRover(int x, int y, Direction d) {
 		this.position = new Position(x, y);
@@ -23,7 +23,7 @@ public class MarsRover {
 		return direction;
 	}
 
-	public void move(char[] commands) {
+	public void move(char[] commands) throws ObstacleEncounteredException {
 		for (char command : commands) {
 			switch (command) {
 			case 'f':
@@ -42,16 +42,41 @@ public class MarsRover {
 		}
 	}
 
-	public void setGrid(Grid grid) {
-		this.grid = grid;
-		position = grid.wrap(position);
+	public void landOn(Planet planet) {
+		this.planet = planet;
+		try {
+			moveAbsolute(position);
+		} catch (ObstacleEncounteredException e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 
-	private void moveRelative(Position relPosition) {
-		Position nextPosition = position.translate(relPosition);
-		if (grid != null)
-			position = grid.wrap(nextPosition);
-		else
+	private void moveAbsolute(Position nextPosition)
+			throws ObstacleEncounteredException {
+		if (planet != null) {
+			if (planet.obstacleAt(nextPosition)) {
+				throw new ObstacleEncounteredException(
+						String.format("Obstacle at %s, staying on %s",
+								nextPosition, position));
+			} else {
+				position = planet.wrap(nextPosition);
+			}
+		} else {
 			position = nextPosition;
+		}
+	}
+
+	private void moveRelative(Position relativePosition)
+			throws ObstacleEncounteredException {
+		moveAbsolute(position.translate(relativePosition));
+
+	}
+
+	public class ObstacleEncounteredException extends Exception {
+		private static final long serialVersionUID = 4719036424670083482L;
+
+		public ObstacleEncounteredException(String msg) {
+			super(msg);
+		}
 	}
 }

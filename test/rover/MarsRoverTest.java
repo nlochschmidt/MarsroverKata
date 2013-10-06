@@ -2,10 +2,13 @@ package rover;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import rover.MarsRover.ObstacleEncounteredException;
 
 /*
  Develop an api that moves a rover around on a grid.
@@ -104,22 +107,60 @@ public class MarsRoverTest {
 	@Test
 	public void setRoverOnGrid() {
 		MarsRover rover = createMarsRover(101, 100, Direction.N);
-		rover.setGrid(new Grid(100, 100));
+		rover.landOn(Planet.createWithDimensions(100, 100));
 		assertPosition(rover, 1, 0);
 	}
 
 	@Test
 	public void roverStaysOnGrid() {
 		MarsRover rover = createMarsRover(0, 0, Direction.N);
-		rover.setGrid(new Grid(100, 100));
+		rover.landOn(Planet.createWithDimensions(100, 100));
 		moveRover(rover, "b");
 		assertPosition(rover, 0, 99);
 		moveRover(rover, "f");
 		assertPosition(rover, 0, 0);
 	}
 
+	@Test
+	public void roverChecksObstaclesOnSettingPlanet() {
+		MarsRover rover = createMarsRover(0, 0, Direction.N);
+		Planet planet = Planet.createWithDimensions(100, 100);
+		planet.addObstacle(new Position(0, 0));
+		try {
+			rover.landOn(planet);
+		} catch (IllegalArgumentException e) {
+			assertThat(e.getCause(),
+					instanceOf(ObstacleEncounteredException.class));
+		}
+	}
+
+	@Test
+	public void roverThrowsExceptionAtObstacle() {
+		MarsRover rover = createMarsRover(2, 0, Direction.N);
+		Planet mars = spy(Planet.createWithDimensions(10, 10));
+		Position obstacle = new Position(2, 2);
+		mars.addObstacle(obstacle);
+		rover.landOn(mars);
+		try {
+			rover.move("ffff".toCharArray());
+			fail();
+		} catch (ObstacleEncounteredException e) {
+			assertPosition(rover, 2, 1);
+		}
+
+		verify(mars).obstacleAt(new Position(2, 0));
+		verify(mars).wrap(new Position(2, 0));
+		verify(mars).obstacleAt(new Position(2, 1));
+		verify(mars).wrap(new Position(2, 1));
+		verify(mars).obstacleAt(new Position(2, 2));
+
+	}
+
 	private void moveRover(MarsRover rover, String commandString) {
-		rover.move(commandString.toCharArray());
+		try {
+			rover.move(commandString.toCharArray());
+		} catch (ObstacleEncounteredException e) {
+		}
 	}
 
 	private void assertPosition(MarsRover rover, int x, int y) {
