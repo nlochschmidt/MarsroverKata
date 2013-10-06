@@ -23,4 +23,8 @@ public class Planet {
 		obstacles.add(grid.wrap(obstacle));
 	}
 
+	public static Planet createWithDimensions(int width, int height) {
+		return new Planet(new Grid(width, height));
+	}
+
 }

@@ -50,4 +50,11 @@ public class PlanetTest {
 		verify(grid, times(3)).wrap(obstacle);
 		verify(grid, times(2)).wrap(realObstacle);
 	}
+
+	@Test
+	public void planetFactoryFunction() {
+		Planet planet = Planet.createWithDimensions(100, 100);
+		assertThat(planet.wrap(new Position(100, 100)), equalTo(new Position(0,
+				0)));
+	}
 }
