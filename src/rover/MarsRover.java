@@ -2,26 +2,20 @@ package rover;
 
 public class MarsRover {
 
-	public enum Direction {
-		N, W, E, S
-	}
-
-	private final int x;
-	private int y;
+	private Position position;
 	private Direction direction;
 
 	public MarsRover(int x, int y, Direction d) {
-		this.x = x;
-		this.y = y;
+		this.position = new Position(x, y);
 		this.direction = d;
 	}
 
 	public int x() {
-		return x;
+		return position.x;
 	}
 
 	public int y() {
-		return y;
+		return position.y;
 	}
 
 	public Direction direction() {
@@ -32,52 +26,19 @@ public class MarsRover {
 		for (char command : commands) {
 			switch (command) {
 			case 'f':
-				y++;
+				position = position.translate(direction.relativeForward);
 				break;
 			case 'b':
-				y--;
+				position = position.translate(direction.relativeForward
+						.negative());
 				break;
 			case 'l':
-				turnLeft();
+				direction = direction.left();
 				break;
 			case 'r':
-				turnRight();
+				direction = direction.right();
 				break;
 			}
-		}
-	}
-
-	private void turnLeft() {
-		switch (direction) {
-		case N:
-			direction = Direction.W;
-			break;
-		case W:
-			direction = Direction.S;
-			break;
-		case S:
-			direction = Direction.E;
-			break;
-		case E:
-			direction = Direction.N;
-			break;
-		}
-	}
-
-	private void turnRight() {
-		switch (direction) {
-		case N:
-			direction = Direction.E;
-			break;
-		case W:
-			direction = Direction.N;
-			break;
-		case S:
-			direction = Direction.W;
-			break;
-		case E:
-			direction = Direction.S;
-			break;
 		}
 	}
 }
