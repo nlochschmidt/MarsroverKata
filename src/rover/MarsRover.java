@@ -2,10 +2,6 @@ package rover;
 
 public class MarsRover {
 
-	public enum Direction {
-		N, W, E, S
-	}
-
 	private final int x;
 	private int y;
 	private Direction direction;
@@ -38,46 +34,12 @@ public class MarsRover {
 				y--;
 				break;
 			case 'l':
-				turnLeft();
+				direction = direction.left();
 				break;
 			case 'r':
-				turnRight();
+				direction = direction.right();
 				break;
 			}
-		}
-	}
-
-	private void turnLeft() {
-		switch (direction) {
-		case N:
-			direction = Direction.W;
-			break;
-		case W:
-			direction = Direction.S;
-			break;
-		case S:
-			direction = Direction.E;
-			break;
-		case E:
-			direction = Direction.N;
-			break;
-		}
-	}
-
-	private void turnRight() {
-		switch (direction) {
-		case N:
-			direction = Direction.E;
-			break;
-		case W:
-			direction = Direction.N;
-			break;
-		case S:
-			direction = Direction.W;
-			break;
-		case E:
-			direction = Direction.S;
-			break;
 		}
 	}
 }
