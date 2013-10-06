@@ -42,14 +42,17 @@ public class MarsRover {
 		}
 	}
 
-	public void setPlanet(Planet planet) {
+	public void landOn(Planet planet) {
 		this.planet = planet;
-		position = planet.wrap(position);
+		try {
+			moveAbsolute(position);
+		} catch (ObstacleEncounteredException e) {
+			throw new IllegalArgumentException(e);
+		}
 	}
 
-	private void moveRelative(Position relPosition)
+	private void moveAbsolute(Position nextPosition)
 			throws ObstacleEncounteredException {
-		Position nextPosition = position.translate(relPosition);
 		if (planet != null) {
 			if (planet.obstacleAt(nextPosition)) {
 				throw new ObstacleEncounteredException(
@@ -63,7 +66,15 @@ public class MarsRover {
 		}
 	}
 
+	private void moveRelative(Position relativePosition)
+			throws ObstacleEncounteredException {
+		moveAbsolute(position.translate(relativePosition));
+
+	}
+
 	public class ObstacleEncounteredException extends Exception {
+		private static final long serialVersionUID = 4719036424670083482L;
+
 		public ObstacleEncounteredException(String msg) {
 			super(msg);
 		}
