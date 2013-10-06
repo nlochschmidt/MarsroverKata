@@ -26,6 +26,14 @@ public class PositionTest {
 	}
 
 	@Test
+	public void negativePosition() {
+		Position p = new Position(2, 3);
+		Position n = new Position(-2, -3);
+
+		assertThat(p.negative(), equalTo(n));
+	}
+
+	@Test
 	public void testEquality() {
 		Position p = new Position(0, 0);
 		Position equalp = new Position(0, 0);

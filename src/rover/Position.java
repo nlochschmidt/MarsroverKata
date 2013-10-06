@@ -27,4 +27,8 @@ public class Position {
 		return other.x == x && other.y == y;
 	}
 
+	public Position negative() {
+		return new Position(-x, -y);
+	}
+
 }
