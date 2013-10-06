@@ -14,6 +14,10 @@ public class Position {
 		return new Position(x + p.x, y + p.y);
 	}
 
+	public Position negative() {
+		return new Position(-x, -y);
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null)
@@ -27,8 +31,8 @@ public class Position {
 		return other.x == x && other.y == y;
 	}
 
-	public Position negative() {
-		return new Position(-x, -y);
-	}
-
+	@Override
+	public String toString() {
+		return String.format("Position(x: %d, y: %d)", x, y);
+	};
 }

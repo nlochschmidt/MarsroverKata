@@ -45,4 +45,13 @@ public class PositionTest {
 		assertThat(p, equalTo(p));
 		assertThat(p, equalTo(equalp));
 	}
+
+	@Test
+	public void testToString() {
+		Position p = new Position(3, 5);
+		assertThat(
+				p.toString(),
+				allOf(containsString("Position"), containsString("3"),
+						containsString("5")));
+	}
 }
