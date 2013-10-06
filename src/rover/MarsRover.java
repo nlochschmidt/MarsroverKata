@@ -4,6 +4,7 @@ public class MarsRover {
 
 	private Position position;
 	private Direction direction;
+	private Grid grid = null;
 
 	public MarsRover(int x, int y, Direction d) {
 		this.position = new Position(x, y);
@@ -26,11 +27,10 @@ public class MarsRover {
 		for (char command : commands) {
 			switch (command) {
 			case 'f':
-				position = position.translate(direction.relativeForward);
+				moveRelative(direction.relativeForward);
 				break;
 			case 'b':
-				position = position.translate(direction.relativeForward
-						.negative());
+				moveRelative(direction.relativeForward.negative());
 				break;
 			case 'l':
 				direction = direction.left();
@@ -40,5 +40,18 @@ public class MarsRover {
 				break;
 			}
 		}
+	}
+
+	public void setGrid(Grid grid) {
+		this.grid = grid;
+		position = grid.wrap(position);
+	}
+
+	private void moveRelative(Position relPosition) {
+		Position nextPosition = position.translate(relPosition);
+		if (grid != null)
+			position = grid.wrap(nextPosition);
+		else
+			position = nextPosition;
 	}
 }

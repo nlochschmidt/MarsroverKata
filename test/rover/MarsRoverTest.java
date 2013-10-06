@@ -47,9 +47,9 @@ public class MarsRoverTest {
 
 	@Test
 	public void driveRoverBackwardOnce() {
-		MarsRover rover = createMarsRover(0, 0, Direction.N);
+		MarsRover rover = createMarsRover(0, 1, Direction.N);
 		moveRover(rover, "b");
-		assertPosition(rover, 0, -1);
+		assertPosition(rover, 0, 0);
 	}
 
 	@Test
@@ -99,6 +99,23 @@ public class MarsRoverTest {
 		moveRover(rover, "bbrbb");
 		assertDirection(rover, Direction.W);
 		assertPosition(rover, 2, 2);
+	}
+
+	@Test
+	public void setRoverOnGrid() {
+		MarsRover rover = createMarsRover(101, 100, Direction.N);
+		rover.setGrid(new Grid(100, 100));
+		assertPosition(rover, 1, 0);
+	}
+
+	@Test
+	public void roverStaysOnGrid() {
+		MarsRover rover = createMarsRover(0, 0, Direction.N);
+		rover.setGrid(new Grid(100, 100));
+		moveRover(rover, "b");
+		assertPosition(rover, 0, 99);
+		moveRover(rover, "f");
+		assertPosition(rover, 0, 0);
 	}
 
 	private void moveRover(MarsRover rover, String commandString) {
