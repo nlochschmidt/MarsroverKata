@@ -58,6 +58,15 @@ public class GridTest {
 			assertThat(grid.wrap(origin), equalTo(expected));
 	}
 
+	@Test
+	public void calculateWrappedNegativePosition() {
+		Grid grid = new Grid(100, 100);
+		Position[] wrapFrom = { p(99, -1), p(-1, 99), p(-1, -1), p(99, 99) };
+		Position expected = p(99, 99);
+		for (Position origin : wrapFrom)
+			assertThat(grid.wrap(origin), equalTo(expected));
+	}
+
 	private Position p(int x, int y) {
 		return new Position(x, y);
 	}

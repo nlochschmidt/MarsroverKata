@@ -101,6 +101,13 @@ public class MarsRoverTest {
 		assertPosition(rover, 2, 2);
 	}
 
+	@Test
+	public void setRoverOnGrid() {
+		MarsRover rover = createMarsRover(101, 100, Direction.N);
+		rover.setGrid(new Grid(100, 100));
+		assertPosition(rover, 1, 0);
+	}
+
 	private void moveRover(MarsRover rover, String commandString) {
 		rover.move(commandString.toCharArray());
 	}

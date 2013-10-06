@@ -4,6 +4,7 @@ public class MarsRover {
 
 	private Position position;
 	private Direction direction;
+	private Grid grid = null;
 
 	public MarsRover(int x, int y, Direction d) {
 		this.position = new Position(x, y);
@@ -40,5 +41,10 @@ public class MarsRover {
 				break;
 			}
 		}
+	}
+
+	public void setGrid(Grid grid) {
+		this.grid = grid;
+		position = grid.wrap(position);
 	}
 }
