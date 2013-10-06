@@ -24,4 +24,17 @@ public class PositionTest {
 		assertThat(result.x, equalTo(3));
 		assertThat(result.y, equalTo(5));
 	}
+
+	@Test
+	public void testEquality() {
+		Position p = new Position(0, 0);
+		Position equalp = new Position(0, 0);
+		Position otherp = new Position(1, 2);
+
+		assertThat(p, not(equalTo(null)));
+		assertThat(p, not(equalTo(new Object())));
+		assertThat(p, not(equalTo(otherp)));
+		assertThat(p, equalTo(p));
+		assertThat(p, equalTo(equalp));
+	}
 }

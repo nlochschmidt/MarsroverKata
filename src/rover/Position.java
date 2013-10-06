@@ -14,4 +14,17 @@ public class Position {
 		return new Position(x + p.x, y + p.y);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null)
+			return false;
+		if (this == obj)
+			return true;
+		if (!obj.getClass().equals(getClass()))
+			return false;
+
+		Position other = (Position) obj;
+		return other.x == x && other.y == y;
+	}
+
 }
