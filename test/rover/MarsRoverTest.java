@@ -54,6 +54,13 @@ public class MarsRoverTest {
 		assertPosition(rover, 0, -1);
 	}
 
+	@Test
+	public void driveRoverForwardBackward() {
+		MarsRover rover = createMarsRover(0, 0, Direction.N);
+		rover.move(new char[] { 'f', 'f', 'f', 'b', 'b', 'f' });
+		assertPosition(rover, 0, 2);
+	}
+
 	private void assertPosition(MarsRover rover, int x, int y) {
 		assertThat(rover.x(), equalTo(x));
 		assertThat(rover.y(), equalTo(y));

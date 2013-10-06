@@ -29,11 +29,12 @@ public class MarsRover {
 	}
 
 	public void move(char[] commands) {
-		if (commands[0] == 'f') {
-			y++;
-		} else if (commands[0] == 'b') {
-			y--;
-		}
+		for (char command : commands)
+			if (command == 'f') {
+				y++;
+			} else if (command == 'b') {
+				y--;
+			}
 
 	}
 }
