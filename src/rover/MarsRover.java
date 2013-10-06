@@ -23,7 +23,7 @@ public class MarsRover {
 		return direction;
 	}
 
-	public void move(char[] commands) {
+	public void move(char[] commands) throws ObstacleEncounteredException {
 		for (char command : commands) {
 			switch (command) {
 			case 'f':
@@ -47,11 +47,25 @@ public class MarsRover {
 		position = planet.wrap(position);
 	}
 
-	private void moveRelative(Position relPosition) {
+	private void moveRelative(Position relPosition)
+			throws ObstacleEncounteredException {
 		Position nextPosition = position.translate(relPosition);
-		if (planet != null)
-			position = planet.wrap(nextPosition);
-		else
+		if (planet != null) {
+			if (planet.obstacleAt(nextPosition)) {
+				throw new ObstacleEncounteredException(
+						String.format("Obstacle at %s, staying on %s",
+								nextPosition, position));
+			} else {
+				position = planet.wrap(nextPosition);
+			}
+		} else {
 			position = nextPosition;
+		}
+	}
+
+	public class ObstacleEncounteredException extends Exception {
+		public ObstacleEncounteredException(String msg) {
+			super(msg);
+		}
 	}
 }

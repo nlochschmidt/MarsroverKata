@@ -2,10 +2,13 @@ package rover;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import rover.MarsRover.ObstacleEncounteredException;
 
 /*
  Develop an api that moves a rover around on a grid.
@@ -118,8 +121,31 @@ public class MarsRoverTest {
 		assertPosition(rover, 0, 0);
 	}
 
+	@Test
+	public void roverThrowsExceptionAtObstacle() {
+		MarsRover rover = createMarsRover(2, 0, Direction.N);
+		Planet mars = spy(Planet.createWithDimensions(10, 10));
+		Position obstacle = new Position(2, 2);
+		mars.addObstacle(obstacle);
+		rover.setPlanet(mars);
+		try {
+			rover.move("ffff".toCharArray());
+			fail();
+		} catch (ObstacleEncounteredException e) {
+			assertPosition(rover, 2, 1);
+		}
+
+		verify(mars).obstacleAt(new Position(2, 1));
+		verify(mars).wrap(new Position(2, 1));
+		verify(mars).obstacleAt(new Position(2, 2));
+
+	}
+
 	private void moveRover(MarsRover rover, String commandString) {
-		rover.move(commandString.toCharArray());
+		try {
+			rover.move(commandString.toCharArray());
+		} catch (ObstacleEncounteredException e) {
+		}
 	}
 
 	private void assertPosition(MarsRover rover, int x, int y) {
