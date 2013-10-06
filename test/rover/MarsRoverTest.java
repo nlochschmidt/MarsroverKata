@@ -41,52 +41,52 @@ public class MarsRoverTest {
 	@Test
 	public void driveRoverForwardOnce() {
 		MarsRover rover = createMarsRover(0, 0, Direction.N);
-		rover.move(new char[] { 'f' });
+		moveRover(rover, "f");
 		assertPosition(rover, 0, 1);
 	}
 
 	@Test
 	public void driveRoverBackwardOnce() {
 		MarsRover rover = createMarsRover(0, 0, Direction.N);
-		rover.move(new char[] { 'b' });
+		moveRover(rover, "b");
 		assertPosition(rover, 0, -1);
 	}
 
 	@Test
 	public void driveRoverForwardBackward() {
 		MarsRover rover = createMarsRover(0, 0, Direction.N);
-		rover.move(ca("fffbbf"));
+		moveRover(rover, "fffbbf");
 		assertPosition(rover, 0, 2);
 	}
 
 	@Test
 	public void turnRoverAroundLeft() {
 		MarsRover rover = createMarsRover(0, 0, Direction.N);
-		rover.move(ca("l"));
+		moveRover(rover, "l");
 		assertDirection(rover, Direction.W);
-		rover.move(ca("l"));
+		moveRover(rover, "l");
 		assertDirection(rover, Direction.S);
-		rover.move(ca("l"));
+		moveRover(rover, "l");
 		assertDirection(rover, Direction.E);
-		rover.move(ca("l"));
+		moveRover(rover, "l");
 		assertDirection(rover, Direction.N);
 	}
 
 	@Test
 	public void turnRoverAroundRight() {
 		MarsRover rover = createMarsRover(0, 0, Direction.N);
-		rover.move(ca("r"));
+		moveRover(rover, "r");
 		assertDirection(rover, Direction.E);
-		rover.move(ca("r"));
+		moveRover(rover, "r");
 		assertDirection(rover, Direction.S);
-		rover.move(ca("r"));
+		moveRover(rover, "r");
 		assertDirection(rover, Direction.W);
-		rover.move(ca("r"));
+		moveRover(rover, "r");
 		assertDirection(rover, Direction.N);
 	}
 
-	private char[] ca(String commandSequence) {
-		return commandSequence.toCharArray();
+	private void moveRover(MarsRover rover, String commandString) {
+		rover.move(commandString.toCharArray());
 	}
 
 	private void assertPosition(MarsRover rover, int x, int y) {
