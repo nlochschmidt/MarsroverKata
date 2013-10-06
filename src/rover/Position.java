@@ -10,4 +10,8 @@ public class Position {
 		this.y = y;
 	}
 
+	public Position translate(Position p) {
+		return new Position(x + p.x, y + p.y);
+	}
+
 }
