@@ -104,14 +104,14 @@ public class MarsRoverTest {
 	@Test
 	public void setRoverOnGrid() {
 		MarsRover rover = createMarsRover(101, 100, Direction.N);
-		rover.setGrid(new Grid(100, 100));
+		rover.setPlanet(Planet.createWithDimensions(100, 100));
 		assertPosition(rover, 1, 0);
 	}
 
 	@Test
 	public void roverStaysOnGrid() {
 		MarsRover rover = createMarsRover(0, 0, Direction.N);
-		rover.setGrid(new Grid(100, 100));
+		rover.setPlanet(Planet.createWithDimensions(100, 100));
 		moveRover(rover, "b");
 		assertPosition(rover, 0, 99);
 		moveRover(rover, "f");

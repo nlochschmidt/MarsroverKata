@@ -4,7 +4,7 @@ public class MarsRover {
 
 	private Position position;
 	private Direction direction;
-	private Grid grid = null;
+	private Planet planet = null;
 
 	public MarsRover(int x, int y, Direction d) {
 		this.position = new Position(x, y);
@@ -42,15 +42,15 @@ public class MarsRover {
 		}
 	}
 
-	public void setGrid(Grid grid) {
-		this.grid = grid;
-		position = grid.wrap(position);
+	public void setPlanet(Planet planet) {
+		this.planet = planet;
+		position = planet.wrap(position);
 	}
 
 	private void moveRelative(Position relPosition) {
 		Position nextPosition = position.translate(relPosition);
-		if (grid != null)
-			position = grid.wrap(nextPosition);
+		if (planet != null)
+			position = planet.wrap(nextPosition);
 		else
 			position = nextPosition;
 	}
