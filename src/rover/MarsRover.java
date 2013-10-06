@@ -29,7 +29,7 @@ public class MarsRover {
 	}
 
 	public void move(char[] commands) {
-		for (char command : commands)
+		for (char command : commands) {
 			switch (command) {
 			case 'f':
 				y++;
@@ -40,8 +40,11 @@ public class MarsRover {
 			case 'l':
 				turnLeft();
 				break;
+			case 'r':
+				turnRight();
+				break;
 			}
-
+		}
 	}
 
 	private void turnLeft() {
@@ -57,6 +60,23 @@ public class MarsRover {
 			break;
 		case E:
 			direction = Direction.N;
+			break;
+		}
+	}
+
+	private void turnRight() {
+		switch (direction) {
+		case N:
+			direction = Direction.E;
+			break;
+		case W:
+			direction = Direction.N;
+			break;
+		case S:
+			direction = Direction.W;
+			break;
+		case E:
+			direction = Direction.S;
 			break;
 		}
 	}

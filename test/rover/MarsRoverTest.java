@@ -74,6 +74,19 @@ public class MarsRoverTest {
 		assertDirection(rover, Direction.N);
 	}
 
+	@Test
+	public void turnRoverAroundRight() {
+		MarsRover rover = createMarsRover(0, 0, Direction.N);
+		rover.move(ca("r"));
+		assertDirection(rover, Direction.E);
+		rover.move(ca("r"));
+		assertDirection(rover, Direction.S);
+		rover.move(ca("r"));
+		assertDirection(rover, Direction.W);
+		rover.move(ca("r"));
+		assertDirection(rover, Direction.N);
+	}
+
 	private char[] ca(String commandSequence) {
 		return commandSequence.toCharArray();
 	}
