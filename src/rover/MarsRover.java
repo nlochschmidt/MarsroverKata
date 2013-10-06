@@ -2,22 +2,20 @@ package rover;
 
 public class MarsRover {
 
-	private final int x;
-	private int y;
+	private Position position;
 	private Direction direction;
 
 	public MarsRover(int x, int y, Direction d) {
-		this.x = x;
-		this.y = y;
+		this.position = new Position(x, y);
 		this.direction = d;
 	}
 
 	public int x() {
-		return x;
+		return position.x;
 	}
 
 	public int y() {
-		return y;
+		return position.y;
 	}
 
 	public Direction direction() {
@@ -28,10 +26,10 @@ public class MarsRover {
 		for (char command : commands) {
 			switch (command) {
 			case 'f':
-				y++;
+				position = position.translate(new Position(0, 1));
 				break;
 			case 'b':
-				y--;
+				position = position.translate(new Position(0, -1));
 				break;
 			case 'l':
 				direction = direction.left();
