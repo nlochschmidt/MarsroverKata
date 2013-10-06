@@ -8,7 +8,7 @@ public class MarsRover {
 
 	private final int x;
 	private int y;
-	private final Direction direction;
+	private Direction direction;
 
 	public MarsRover(int x, int y, Direction d) {
 		this.x = x;
@@ -30,11 +30,34 @@ public class MarsRover {
 
 	public void move(char[] commands) {
 		for (char command : commands)
-			if (command == 'f') {
+			switch (command) {
+			case 'f':
 				y++;
-			} else if (command == 'b') {
+				break;
+			case 'b':
 				y--;
+				break;
+			case 'l':
+				turnLeft();
+				break;
 			}
 
+	}
+
+	private void turnLeft() {
+		switch (direction) {
+		case N:
+			direction = Direction.W;
+			break;
+		case W:
+			direction = Direction.S;
+			break;
+		case S:
+			direction = Direction.E;
+			break;
+		case E:
+			direction = Direction.N;
+			break;
+		}
 	}
 }

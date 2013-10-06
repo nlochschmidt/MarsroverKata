@@ -37,7 +37,7 @@ public class MarsRoverTest {
 	@Test
 	public void roverHasStartingDirection() {
 		MarsRover rover = createMarsRover(0, 0, Direction.N);
-		assertThat(rover.direction(), equalTo(Direction.N));
+		assertDirection(rover, Direction.N);
 	}
 
 	@Test
@@ -57,13 +57,34 @@ public class MarsRoverTest {
 	@Test
 	public void driveRoverForwardBackward() {
 		MarsRover rover = createMarsRover(0, 0, Direction.N);
-		rover.move(new char[] { 'f', 'f', 'f', 'b', 'b', 'f' });
+		rover.move(ca("fffbbf"));
 		assertPosition(rover, 0, 2);
+	}
+
+	@Test
+	public void turnRoverAroundLeft() {
+		MarsRover rover = createMarsRover(0, 0, Direction.N);
+		rover.move(ca("l"));
+		assertDirection(rover, Direction.W);
+		rover.move(ca("l"));
+		assertDirection(rover, Direction.S);
+		rover.move(ca("l"));
+		assertDirection(rover, Direction.E);
+		rover.move(ca("l"));
+		assertDirection(rover, Direction.N);
+	}
+
+	private char[] ca(String commandSequence) {
+		return commandSequence.toCharArray();
 	}
 
 	private void assertPosition(MarsRover rover, int x, int y) {
 		assertThat(rover.x(), equalTo(x));
 		assertThat(rover.y(), equalTo(y));
+	}
+
+	private void assertDirection(MarsRover rover, Direction direction) {
+		assertThat(rover.direction(), equalTo(direction));
 	}
 
 	private MarsRover createMarsRover(int x, int y, Direction d) {
