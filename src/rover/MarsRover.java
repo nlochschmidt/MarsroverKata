@@ -7,7 +7,7 @@ public class MarsRover {
 	}
 
 	private final int x;
-	private final int y;
+	private int y;
 	private final Direction direction;
 
 	public MarsRover(int x, int y, Direction d) {
@@ -26,5 +26,14 @@ public class MarsRover {
 
 	public Direction direction() {
 		return direction;
+	}
+
+	public void move(char[] commands) {
+		if (commands[0] == 'f') {
+			y++;
+		} else if (commands[0] == 'b') {
+			y--;
+		}
+
 	}
 }

@@ -28,18 +28,35 @@ public class MarsRoverTest {
 	@Test
 	public void roverHasStartingPosition() {
 		MarsRover rover = createMarsRover(0, 0, Direction.N);
-		assertThat(rover.x(), equalTo(0));
-		assertThat(rover.y(), equalTo(0));
+		assertPosition(rover, 0, 0);
 
 		rover = createMarsRover(10, 15, Direction.N);
-		assertThat(rover.x(), equalTo(10));
-		assertThat(rover.y(), equalTo(15));
+		assertPosition(rover, 10, 15);
 	}
 
 	@Test
 	public void roverHasStartingDirection() {
 		MarsRover rover = createMarsRover(0, 0, Direction.N);
 		assertThat(rover.direction(), equalTo(Direction.N));
+	}
+
+	@Test
+	public void driveRoverForwardOnce() {
+		MarsRover rover = createMarsRover(0, 0, Direction.N);
+		rover.move(new char[] { 'f' });
+		assertPosition(rover, 0, 1);
+	}
+
+	@Test
+	public void driveRoverBackwardOnce() {
+		MarsRover rover = createMarsRover(0, 0, Direction.N);
+		rover.move(new char[] { 'b' });
+		assertPosition(rover, 0, -1);
+	}
+
+	private void assertPosition(MarsRover rover, int x, int y) {
+		assertThat(rover.x(), equalTo(x));
+		assertThat(rover.y(), equalTo(y));
 	}
 
 	private MarsRover createMarsRover(int x, int y, Direction d) {
