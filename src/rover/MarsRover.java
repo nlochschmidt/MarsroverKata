@@ -26,10 +26,11 @@ public class MarsRover {
 		for (char command : commands) {
 			switch (command) {
 			case 'f':
-				position = position.translate(new Position(0, 1));
+				position = position.translate(direction.relativeForward);
 				break;
 			case 'b':
-				position = position.translate(new Position(0, -1));
+				position = position.translate(direction.relativeForward
+						.negative());
 				break;
 			case 'l':
 				direction = direction.left();

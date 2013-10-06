@@ -85,6 +85,22 @@ public class MarsRoverTest {
 		assertDirection(rover, Direction.N);
 	}
 
+	@Test
+	public void drivePathFromKataSpec() {
+		MarsRover rover = createMarsRover(0, 0, Direction.N);
+		moveRover(rover, "ffrff");
+		assertDirection(rover, Direction.E);
+		assertPosition(rover, 2, 2);
+	}
+
+	@Test
+	public void driveRoverBackwardsAroundCorners() {
+		MarsRover rover = createMarsRover(0, 0, Direction.S);
+		moveRover(rover, "bbrbb");
+		assertDirection(rover, Direction.W);
+		assertPosition(rover, 2, 2);
+	}
+
 	private void moveRover(MarsRover rover, String commandString) {
 		rover.move(commandString.toCharArray());
 	}
